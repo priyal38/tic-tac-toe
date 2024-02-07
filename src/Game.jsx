@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import Board from './Board';
-import ResultBox from './ResultBox';
-import Home from './Home';
-
+import React, { useState, useEffect, useRef } from "react";
+import Board from "./Board";
+import ResultBox from "./ResultBox";
+import Home from "./Home";
 
 const Game = () => {
   const [squares, setSquares] = useState([]);
@@ -10,27 +9,20 @@ const Game = () => {
   const [playerX, setPlayerX] = useState(null);
   const [playerO, setPlayerO] = useState(null);
   const [boardSize, setBoardSize] = useState(null);
-   const [currentPlayer, setCurrentPlayer] = useState('X');
+  const [currentPlayer, setCurrentPlayer] = useState("X");
 
   useEffect(() => {
     checkWinner();
   }, [squares]);
 
-  const getCurrentPlayer = () => {
-    return currentPlayer
-  };
-
   const handleBoxClick = (index) => {
     if (squares[index] || winner) return;
 
     const newSquares = [...squares];
-    newSquares[index] = getCurrentPlayer();
+    newSquares[index] = currentPlayer;
     setSquares(newSquares);
-    setCurrentPlayer((prevPlayer) => (prevPlayer === 'X' ? 'O' : 'X'));
-  
-    
+    setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
   };
-
 
   // const checkWinner = () => {
   //   const winningConditions = [
@@ -55,7 +47,7 @@ const Game = () => {
 
   const checkWinner = () => {
     const winningConditions = [];
-    
+
     // Rows and Columns
     for (let i = 0; i < boardSize; i++) {
       const row = [];
@@ -65,9 +57,9 @@ const Game = () => {
         col.push(i + j * boardSize);
       }
       winningConditions.push(row);
-      winningConditions.push(col);  
+      winningConditions.push(col);
     }
-  
+
     // Diagonals
     const diagonal1 = [];
     const diagonal2 = [];
@@ -77,35 +69,35 @@ const Game = () => {
     }
     winningConditions.push(diagonal1);
     winningConditions.push(diagonal2);
-  
+
     for (const condition of winningConditions) {
-      const isWinningSequence = condition.every((index) => squares[index] === squares[condition[0]] && squares[index] !== null);
+      const isWinningSequence = condition.every(
+        (index) =>
+          squares[index] === squares[condition[0]] && squares[index] !== null
+      );
       if (isWinningSequence) {
         setWinner(squares[condition[0]]);
         return;
       }
     }
-  
+
     // If no winner and all squares are filled, it's a draw
     if (squares.every((square) => square !== null)) {
-      setWinner('draw');
+      setWinner("draw");
       return; // Return early for draw
     }
-  
-    return null;
   };
-  
 
   const handleReset = () => {
     setSquares(Array(boardSize * boardSize).fill(null));
     setWinner(null);
-    setCurrentPlayer('X');
+    setCurrentPlayer("X");
   };
 
-  const handlePlayerSelection = (playerXName, playerOName , boardSize) => {
+  const handlePlayerSelection = (playerXName, playerOName, boardSize) => {
     setPlayerX(playerXName);
     setPlayerO(playerOName);
-    setBoardSize(boardSize)
+    setBoardSize(boardSize);
     setSquares(Array(boardSize * boardSize).fill(null));
   };
 
@@ -115,21 +107,44 @@ const Game = () => {
     setBoardSize(null);
     setSquares([]);
     setWinner(null);
-    setCurrentPlayer('X');
+    setCurrentPlayer("X");
   };
 
   return (
     <div>
-      {!playerX? (
-        <Home handlePlayerSelection={handlePlayerSelection} />
-      ) : (
-        <div>
+      {!playerX && <Home handlePlayerSelection={handlePlayerSelection} />}
+
+      {playerO && playerX && (
+        <>
           <h1>Let's start the game </h1>
-          <h2>`${playerX} vs ${playerO}`</h2>
-          <h3>Next Player: {currentPlayer}</h3>
-          <Board squares={squares} handleBoxClick={handleBoxClick} boardSize={boardSize} />
-          {winner && <ResultBox   winner={winner === 'X' ? playerX : playerO} handleReset={handleReset} handleGoHome={handleGoHome}/>}
-        </div>
+          <p>
+            {playerX} vs {playerO}
+          </p>
+
+          {playerX &&
+            playerO &&
+            winner !== "X" &&
+            winner !== "O" &&
+            winner !== "draw" && (
+              <div>
+                <p>Next Player: {currentPlayer === "X" ? playerX : playerO}</p>
+              </div>
+            )}
+          <Board
+            squares={squares}
+            handleBoxClick={handleBoxClick}
+            boardSize={boardSize}
+          />
+          {winner && (
+            <ResultBox
+              winner={winner}
+              playerO={playerO}
+              playerX={playerX}
+              handleReset={handleReset}
+              handleGoHome={handleGoHome}
+            />
+          )}
+        </>
       )}
     </div>
   );

@@ -12,8 +12,10 @@ const Home = ({ handlePlayerSelection }) => {
   // };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (playerXName !== '' && playerOName !== '') {
+
+    if (playerXName === '' && playerOName === '' && boardSize === '') 
+    alert('Enter details');
+    {
       handlePlayerSelection(playerXName, playerOName, boardSize);
     }
   };
@@ -23,25 +25,34 @@ const Home = ({ handlePlayerSelection }) => {
       <div className="content">
         <div className="title">Select which you want to be?</div>
         <div className="options">
+         <div className='x'>
+         
         <label>
           Player X Name:
           <input type="text" value={playerXName} onChange={(e) => setPlayerXName(e.target.value)} />
         </label>
-        <br />
-        <label>
+        </div> 
+        <div className='o'>
+        <label >
           Player O Name:
           <input type="text" value={playerOName} onChange={(e) => setPlayerOName(e.target.value)} />
         </label>
+        </div>
 
         </div>
-        <p>Select Board Size:</p>
+        <div className='select-size'>
+        <label>Select Board Size:
           <select value={boardSize} onChange={(e) => setBoardSize(parseInt(e.target.value))}>
             <option value="">select</option>
             <option value="3">3x3</option>
             <option value="4">4x4</option>
           </select>
+          </label>
+          </div>
       </div>
-      <button onClick={handleSubmit}>start</button>
+      <div className='startbtn'>
+      <button  onClick={handleSubmit}>Start Game</button>
+      </div>
     </div>
   );
 };

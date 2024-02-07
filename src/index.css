@@ -11,7 +11,7 @@ body{
   position: absolute;
   top: 50%;
   left: 50%;
-
+ 
   transform: translate(-50%,-50%);
 }
 
@@ -25,6 +25,8 @@ body{
   /* display: none; */
 }
 
+
+
 .select-box header{
   font-size: 23px;
   font-weight: 600;
@@ -37,7 +39,7 @@ body{
   margin: 20px 0;
 }
 .options{
-  display: flex;
+
   width: 100%;
 }
 
@@ -56,14 +58,64 @@ font-weight: 500;
   transition: all 0.3s ease;
 }
 
+.x{
+  margin-bottom: 20px;
+  
+}
+
+.o{
+  margin-bottom: 20px;
+}
+
+input{
+ margin-left: 8px;
+ height: 30px;
+ width: 150px;
+ outline: none;
+ font-size: 1rem;
+ margin-top: 8px;
+ border: 2px solid #ddd;
+ border-radius: 6px;
+ padding: 0 15px;
+}
 
 
-.playerX{
-  margin-right: 5px;;
+.select-size{
+display: flex;
+  
 }
-.playerY{
-  margin-left: 5px;;
+.select-size select {
+  height: 30px;
+  width: 100px;
+  outline: none;
+  color: #707070;
+  font-size: 1rem;
+  padding: 0 8px;
+  border-radius: 6px;
+  border: 2px solid #ddd;
+  margin-left: 8px;
 }
+.startbtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.startbtn button{
+  font-size: 16px;
+  font-weight: 500;
+    padding: 8px ;
+    border: none;
+    outline:none;
+    background-color: rgb(246, 28, 173);
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    
+   
+}
+
+/* board css */
 
 .board-3 {
   display: grid;
@@ -73,8 +125,7 @@ font-weight: 500;
   justify-content: center;
   
 }
-
-.board-4 {
+.board-4{
   display: grid;
   grid-template-columns: repeat(4, 100px);
   grid-gap: 4px;
@@ -82,6 +133,8 @@ font-weight: 500;
   justify-content: center;
   
 }
+
+/* squre css */
 
 .square {
   width: 100px;
@@ -104,6 +157,13 @@ h1 {
   margin-bottom: 20px;
 }
 
+p{
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 10px;
+margin: 20px;
+}
+/* result box css */
 
 .won-text{
   font-size: 25px;
@@ -132,4 +192,5 @@ h1 {
     color: #fff;
     cursor: pointer;
     border-radius: 5px;
+   margin: 5px;
 }
