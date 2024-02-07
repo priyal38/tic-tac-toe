@@ -1,9 +1,9 @@
 import React from "react";
 import Square from "./Square";
 
-const Board = ({ squares, handleBoxClick }) => {
+const Board = ({ squares, handleBoxClick , boardSize }) => {
   return (
-    <div className="board">
+    <div className={`board-${boardSize}`}>
       {squares.map((value, index) => (
         <Square
           key={index}

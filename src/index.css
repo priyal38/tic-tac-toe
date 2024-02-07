@@ -65,9 +65,18 @@ font-weight: 500;
   margin-left: 5px;;
 }
 
-.board {
+.board-3 {
   display: grid;
   grid-template-columns: repeat(3, 100px);
+  grid-gap: 4px;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.board-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
   grid-gap: 4px;
   align-items: center;
   justify-content: center;
